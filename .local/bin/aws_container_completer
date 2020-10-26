@@ -1,0 +1,10 @@
+#!/bin/sh
+command -v docker > /dev/null 2>&1 && cmd=docker
+command -v podman > /dev/null 2>&1 && cmd=podman
+
+$cmd run --rm --entrypoint /usr/local/bin/aws_completer \
+    -e COMP_LINE \
+    -e COMMAND_LINE \
+    -e COMP_POINT \
+    -e COMP_KEY \
+    -e COMP_TYPE amazon/aws-cli:"${AWS_CLI_VERSION:-2.0.59}" "$@"
